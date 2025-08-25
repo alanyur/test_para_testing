@@ -5,4 +5,4 @@ class TestSuma(unittest.TestCase):
         a=1
         b=2
         c=a+b
-        assert c==4
+        assert c==3
