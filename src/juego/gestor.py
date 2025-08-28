@@ -18,7 +18,14 @@ class gestor:
         self.turno_actual = (self.turno_actual + 1) % len(self.jugadores)
         print(f"Turno del jugador {self.turno_actual + 1}")
 #### Me falta la funcionalidad para cuando queda solo un dado
+###podria poner un booleano que cambie cuando ya no sea el primer turno
 
+    def un_dado(self):
+        if len(self.jugadores[self.turno_actual].dados)==1:
+            print("te queda un dado")
+            return True
+        else:
+            return False
 
 if __name__ == "__main__":
     mi_gestor = gestor()

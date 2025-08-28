@@ -26,13 +26,17 @@ class arbitro:
                 cantidad1=int(input("ponga cantidad")) ###tengo que hacer una manera para que se haga un ciclo hasta que se calce o dude
                 pinta1=input("ponga pinta")
                 print("que bueno que subiste")
-            if(resp=="calza"):
+            if(resp=="calza" and (self.gestor_juego.un_dado() == True or cantidad1>=self.mi_contador.dados_totales(self.gestor_juego.jugadores)/2)):
                 cantidad_dados=self.mi_contador=contador.contador().cuenta(self.gestor_juego.jugadores)
                 indice=pintas[pinta1]
                 if cantidad_dados[indice] == cantidad1:
                     self.gestor_juego.jugadores[self.gestor_juego.turno_actual].dados_extra()
                 else:
                     self.gestor_juego.jugadores[self.gestor_juego.turno_actual].perder_dado()
+            
+            elif(resp=="calza" and (cantidad1<self.mi_contador.dados_totales(self.gestor_juego.jugadores)/2 or self.gestor_juego.un_dado() == False)):
+                print("no puedes calzar, por no saber las reglas perdiste un turno")
+
             elif(resp=="duda"):
                 cantidad_dados=self.mi_contador=contador.contador().cuenta(self.gestor_juego.jugadores)
                 indice=pintas[pinta1]
