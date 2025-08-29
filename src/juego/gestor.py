@@ -1,8 +1,7 @@
 import random
-import cacho
+from src.juego import cacho
 class gestor:
     def __init__(self):
-        self.jugadores = []
         cantidad_jugadores=int(input("ingrese la cantidad de jugadores (2-5): "))
         while cantidad_jugadores <2 or cantidad_jugadores>5:
             cantidad_jugadores=int(input("ingrese la cantidad de jugadores (2-5): "))
@@ -17,15 +16,16 @@ class gestor:
     def turno(self):
         self.turno_actual = (self.turno_actual + 1) % len(self.jugadores)
         print(f"Turno del jugador {self.turno_actual + 1}")
-#### Me falta la funcionalidad para cuando queda solo un dado
-###podria poner un booleano que cambie cuando ya no sea el primer turno
+        ###aqui va todo lo de los turnos
 
     def un_dado(self):
-        if len(self.jugadores[self.turno_actual].dados)==1:
-            print("te queda un dado")
-            return True
-        else:
-            return False
+        k=len(self.jugadores)
+        for i in range (k):
+            if len(self.jugadores[self.turno_actual].dados)==1:
+                print("te queda un dado")
+                return True
+            else:
+                return False
 
 if __name__ == "__main__":
     mi_gestor = gestor()

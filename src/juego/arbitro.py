@@ -1,12 +1,11 @@
-import gestor
-import contador
+from src.juego import contador
+from src.juego import cacho
 class arbitro:
-    def __init__(self):
-        self.gestor_juego =  gestor.gestor()
-        self.partida()
+    
+###tengo que hacer la condicion para que alguien gane la partida
 
 
-    def partida(self):
+    def dudar(self,cantidad,pinta,jugadores):
         pintas={
                 "as":int(0),
                 "tonto":int(1),
@@ -15,37 +14,44 @@ class arbitro:
                 "quinta":int(4),
                 "sexta":int(5)
             }
-        print("ingrese una cantidad y una pinta")
-        cantidad1=int(input("ponga cantidad"))
-        pinta1=input("ponga pinta")
-        self.gestor_juego.turno()
-        while True:
-            resp=input("ingrese su jugada (subir, calza, duda): ")
-            ###aqui va el validador de apuestasr
-            if(resp=="subir"):
-                cantidad1=int(input("ponga cantidad")) ###tengo que hacer una manera para que se haga un ciclo hasta que se calce o dude
-                pinta1=input("ponga pinta")
-                print("que bueno que subiste")
-            if(resp=="calza" and (self.gestor_juego.un_dado() == True or cantidad1>=self.mi_contador.dados_totales(self.gestor_juego.jugadores)/2)):
-                cantidad_dados=self.mi_contador=contador.contador().cuenta(self.gestor_juego.jugadores)
-                indice=pintas[pinta1]
-                if cantidad_dados[indice] == cantidad1:
-                    self.gestor_juego.jugadores[self.gestor_juego.turno_actual].dados_extra()
-                else:
-                    self.gestor_juego.jugadores[self.gestor_juego.turno_actual].perder_dado()
-            
-            elif(resp=="calza" and (cantidad1<self.mi_contador.dados_totales(self.gestor_juego.jugadores)/2 or self.gestor_juego.un_dado() == False)):
-                print("no puedes calzar, por no saber las reglas perdiste un turno")
+        cantidad_dados=contador.contador().cuenta(jugadores)
+        indice=pintas[pinta]
+        if cantidad_dados[indice] >= cantidad:
+            return True ###dudaste bien
+        else:
+            return False ###dudaste mal
 
-            elif(resp=="duda"):
-                cantidad_dados=self.mi_contador=contador.contador().cuenta(self.gestor_juego.jugadores)
-                indice=pintas[pinta1]
-                if cantidad_dados[indice] >= cantidad1:
-                    self.gestor_juego.jugadores[self.gestor_juego.turno_actual-1].perder_dado()
-                    print("jugador anterior")
-                else:
-                    self.gestor_juego.jugadores[self.gestor_juego.turno_actual].perder_dado()
-            self.gestor_juego.turno()
+    def calzar(self,cantidad,pinta,jugadores):
+        pintas={
+                "as":int(0),
+                "tonto":int(1),
+                "tren":int(2),
+                "cuadra":int(3),
+                "quinta":int(4),
+                "sexta":int(5)
+            }
+        cantidad_dados=contador.contador().cuenta(jugadores)
+        indice=pintas[pinta]
+        if cantidad_dados[indice] == cantidad:
+            return True ###calzaste bien
+        else:
+            return False ###calzaste mal
+
+    def pasar_dado(self,string,boolean,jugadores,k):
+        if string=="calzar" and boolean==True:
+            jugadores[k].dados_extra()
+        elif string=="calzar" and boolean==False:
+            jugadores[k].perder_dado()
+        elif string=="dudar" and boolean==True:
+            jugadores[k-1].perder_dado()
+        elif string=="dudar" and boolean==False:
+            jugadores[k].perder_dado()
+
+    def validar_calzar(self,cantidad,jugadores,k):
+        if cantidad>=contador.contador().dados_totales(jugadores)/2 or len(jugadores(k).dados) == 1:
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":

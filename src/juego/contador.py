@@ -16,4 +16,9 @@ class contador:
                 elif(jugadores[j].dados[k].total=="sexta"):
                     cantidad_dados[5]=+1
         return cantidad_dados
+    def dados_totales(self,jugadores):
+        total=0
+        for j in range(len(jugadores)):
+            total+=len(jugadores[j].dados)
+        return total
 ###Cuenta cuantas hay en realidad

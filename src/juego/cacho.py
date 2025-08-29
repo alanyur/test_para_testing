@@ -1,8 +1,8 @@
-from dado import dado
+from src.juego import dado
 class cacho:
     extra=0
     def __init__(self):
-        self.dados = [dado() for _ in range(5)]
+        self.dados = [dado.dado() for _ in range(5)]
 
     def agitar(self):
         for d in self.dados:
